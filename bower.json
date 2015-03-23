@@ -1,0 +1,17 @@
+{
+  "name": "component-sort-table",
+  "version": "0.0.1",
+  "homepage": "https://github.com/seattletimes/component-sort-table",
+  "authors": [
+    "The Seattle Times"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/lib",
+    "test",
+    "tests"
+  ]
+}
