@@ -15,8 +15,9 @@ proto.createdCallback = function() {
   parser.on("data", function(line) { parsed.push(line) });
   parser.write(tableData);
   parser.end();
-  // strip off header
-  // this.innerHTML = template({header: header, body: parsed})
+  var header = parsed.splice(0,1)[0];
+  this.innerHTML = template({header: header, body: parsed});
+
 };
 proto.attachedCallback = function() {};
 proto.detachedCallback = function() {};
