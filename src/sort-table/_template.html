@@ -1,14 +1,18 @@
 <table>
-  <thead>
-    <% data.header.forEach(function(cell) { %>
-      <th><%=cell%></th>
-  <% }); %>
-</thead>
-  <% data.body.forEach(function(row) { %>
-    <tr>
-      <% row.forEach(function(cell) { %>
-        <td><%= cell %></td>
+  <% if (data.header) { %>
+    <thead>
+      <% data.header.forEach(function(cell, index) { %>
+        <th id=<%= index %>><%= cell %></th>
       <% }); %>
-    </tr>
-  <% }); %>
+    </thead>
+  <% } %>
+  <tbody>
+    <% data.body.forEach(function(row) { %>
+      <tr>
+        <% row.forEach(function(cell) { %>
+          <td><%= cell %></td>
+        <% }); %>
+      </tr>
+    <% }); %>
+  </tbody>
 </table>

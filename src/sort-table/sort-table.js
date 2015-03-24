@@ -15,15 +15,45 @@ proto.createdCallback = function() {
   parser.on("data", function(line) { parsed.push(line) });
   parser.write(tableData);
   parser.end();
-  var header = parsed.splice(0,1)[0];
-  this.innerHTML = template({header: header, body: parsed});
 
+  if (this.hasAttribute("noheader")) {
+    this.innerHTML = template({body: parsed});
+  } else {
+    var header = parsed.shift();
+    this.innerHTML = template({header: header, body: parsed});
+  }
+
+  this.data = {
+    header: header,
+    rows: parsed,
+    sortOrder: 1,
+    lastSort: null
+  }
+
+  if (this.hasAttribute("sortable")) {
+    this.addEventListener("click", function(e) {
+      if (e.target.tagName == "TH") {
+        this.sortTable(e.target.id);
+      }
+    })
+  }
 };
 proto.attachedCallback = function() {};
 proto.detachedCallback = function() {};
 proto.attributeChangedCallback = function() {};
-proto.sortTable = function() {
-
+proto.sortTable = function(index) {
+  if (this.data.lastSort == index) { 
+    this.data.sortOrder *= -1;
+  } else {
+    this.data.lastSort = index;
+    this.data.sortOrder = 1;
+  }
+  var self = this;
+  this.data.rows.sort(function(a, b) {
+    return (b[index] - a[index]) * self.data.sortOrder;
+  });
+  this.innerHTML = template({header: this.data.header, body: this.data.rows});
 };
+proto.data = null;
 
 document.registerElement("sort-table", { prototype: proto });
