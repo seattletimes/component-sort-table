@@ -9,15 +9,20 @@ require("./sort-table.less");
 var proto = Object.create(HTMLElement.prototype);
 
 proto.createdCallback = function() {
-  var table = this.innerHTML.replace(/\r/g, "").split("\n").filter(function(line) { return line.match(/[^,]/) }).join("\n");
+  var tableData = this.innerHTML.replace(/^\s+|\r/gm, "").split("\n").filter(function(line) { return line.match(/[^,]/) }).join("\n");
   var parsed = [];
-  var parser = csv.parse({ columns: true });
+  var parser = csv.parse();
   parser.on("data", function(line) { parsed.push(line) });
-  parser.write(table);
+  parser.write(tableData);
   parser.end();
+  // strip off header
+  // this.innerHTML = template({header: header, body: parsed})
 };
 proto.attachedCallback = function() {};
 proto.detachedCallback = function() {};
 proto.attributeChangedCallback = function() {};
+proto.sortTable = function() {
+
+};
 
 document.registerElement("sort-table", { prototype: proto });
