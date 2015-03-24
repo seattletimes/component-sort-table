@@ -50,7 +50,15 @@ proto.sortTable = function(index) {
   }
   var self = this;
   this.data.rows.sort(function(a, b) {
-    return (b[index] - a[index]) * self.data.sortOrder;
+    a = parseInt(a[index]) ? a[index] * -1 : a[index].toLowerCase();
+    b = parseInt(b[index]) ? b[index] * -1 : b[index].toLowerCase();
+    if (a < b) {
+      return -1 * self.data.sortOrder;
+    } else if (a > b) {
+      return 1 * self.data.sortOrder;
+    } else if (a == b) {
+      return 0;
+    }
   });
   this.innerHTML = template({header: this.data.header, body: this.data.rows});
 };
