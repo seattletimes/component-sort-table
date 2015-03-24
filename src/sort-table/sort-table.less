@@ -8,5 +8,23 @@ sort-table {
 
   th {
     cursor: pointer;
+    padding-right: 20px;
+
+    &.up::after {
+      position: absolute;
+      content: "\25B2";
+      font-size: 10px;
+      color: rgb(188, 92, 35);
+      padding-left: 3px;
+      padding-top: 1px;
+    }
+    &.down::after {
+      position: absolute;
+      content: "\25BC";
+      font-size: 10px;
+      color: rgb(188, 92, 35);
+      padding-left: 3px;
+      padding-top: 2px;
+    }
   }
 }

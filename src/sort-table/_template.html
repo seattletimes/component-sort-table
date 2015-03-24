@@ -2,7 +2,15 @@
   <% if (data.header) { %>
     <thead>
       <% data.header.forEach(function(cell, index) { %>
-        <th id=<%= index %>><%= cell %></th>
+        <th 
+        <% if (index == data.lastSort) { %>
+          <% if (data.sortOrder == -1) { %>
+            class="up"
+          <% } else { %>
+            class="down"
+          <% } %>
+        <% } %>
+        id=<%= index %>><%= cell %></th>
       <% }); %>
     </thead>
   <% } %>

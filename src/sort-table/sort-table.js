@@ -20,7 +20,10 @@ proto.createdCallback = function() {
     this.innerHTML = template({body: parsed});
   } else {
     var header = parsed.shift();
-    this.innerHTML = template({header: header, body: parsed});
+    this.innerHTML = template({
+      header: header, 
+      body: parsed
+    });
   }
 
   this.data = {
@@ -34,6 +37,7 @@ proto.createdCallback = function() {
     this.addEventListener("click", function(e) {
       if (e.target.tagName == "TH") {
         this.sortTable(e.target.id);
+        e.target.className = "up";
       }
     })
   }
@@ -60,7 +64,12 @@ proto.sortTable = function(index) {
       return 0;
     }
   });
-  this.innerHTML = template({header: this.data.header, body: this.data.rows});
+  this.innerHTML = template({
+    header: this.data.header, 
+    body: this.data.rows, 
+    lastSort: this.data.lastSort, 
+    sortOrder: this.data.sortOrder 
+  });
 };
 proto.data = null;
 
