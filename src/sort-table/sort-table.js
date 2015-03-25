@@ -37,13 +37,13 @@ proto.createdCallback = function() {
     this.addEventListener("click", function(e) {
       if (e.target.tagName == "TH") {
 
-        // this.attributes.sortable
         this.sortTable(e.target.id);
         e.target.className = "up";
       }
     })
   }
 };
+
 proto.attachedCallback = function() {};
 proto.detachedCallback = function() {};
 proto.attributeChangedCallback = function() {};

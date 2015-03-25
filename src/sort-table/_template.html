@@ -14,7 +14,10 @@
       <% }); %>
     </thead>
   <% } %>
-  <tbody>
+  <tbody 
+    <% if (data.body.length > 4) { %>
+      class="striped"
+    <% } %>>
     <% data.body.forEach(function(row) { %>
       <tr>
         <% row.forEach(function(cell) { %>
