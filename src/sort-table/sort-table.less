@@ -5,11 +5,21 @@ sort-table {
     -ms-box-sizing: border-box;
     box-sizing: border-box;
   }
-  
+
+  table {
+    border-collapse: collapse;
+  }
+
   th {
     cursor: pointer;
+    padding: 0.3em;
     padding-left: 1.2em;
     font-size: 1.1em;
+    border-right: 1px solid rgb(248, 248, 248);
+
+    &:last-child { 
+      border-right: none; 
+    }
 
     &.up::before, &.down::before {
       position: absolute;
@@ -59,6 +69,11 @@ sort-table {
   td {
     padding: 0.4em;
     text-align: right;
+    border-right: 1px solid rgb(248, 248, 248);
+
+    &:last-child { 
+      border-right: none; 
+    }
 
     &.string {
       text-align: left;
