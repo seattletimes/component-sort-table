@@ -8,42 +8,42 @@ sort-table {
 
   th {
     cursor: pointer;
-    padding-right: 1.2em;
+    padding-left: 1.2em;
     font-size: 1.1em;
 
-    &.up::after, &.down::after {
+    &.up::before, &.down::before {
       position: absolute;
       font-size: 10px;
       color: rgb(188, 92, 35);
-      margin-left: 0.3em;
+      margin-left: -1.3em;
     }
-    &.up::after {
+    &.up::before {
       content: "\25B2";
       padding-top: 1px;
     }
-    &.down::after {
+    &.down::before {
       content: "\25BC";
       padding-top: 2px;
     }
 
-    &.number {
-      padding-right: 0;
-      padding-left: 1.2em;
+    &.string {
+      padding-left: 0;
+      padding-right: 1.2em;
 
-      &.up::after, &.down::after {
+      &.up::before, &.down::before {
         content: "";
       }
-      &.up::before, &.down::before {
+      &.up::after, &.down::after {
         position: absolute;
         font-size: 10px;
         color: rgb(188, 92, 35);
-        margin-left: -1.3em;
+        margin-left: 0.3em;
       }
-      &.up::before {
+      &.up::after {
         content: "\25B2";
         padding-top: 1px;
       }
-      &.down::before {
+      &.down::after {
         content: "\25BC";
         padding-top: 2px;
       }
@@ -58,9 +58,10 @@ sort-table {
 
   td {
     padding: 4px;
+    text-align: right;
 
-    &.number {
-      text-align: right;
+    &.string {
+      text-align: left;
     }
 
     &.emphasis {
