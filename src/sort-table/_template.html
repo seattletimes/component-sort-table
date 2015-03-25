@@ -2,15 +2,16 @@
   <% if (data.header) { %>
     <thead>
       <% data.header.forEach(function(cell, index) { %>
-        <th 
+        <th class="
         <% if (index == data.lastSort) { %>
           <% if (data.sortOrder == -1) { %>
-            class="up"
+            up
           <% } else { %>
-            class="down"
+            down
           <% } %>
         <% } %>
-        id=<%= index %>><%= cell %></th>
+        <% if (data.classes[index]) { %> <%= data.classes[index] %><% } %>
+        " id=<%= index %>><%= cell %></th>
       <% }); %>
     </thead>
   <% } %>
@@ -20,12 +21,11 @@
     <% } %>>
     <% data.body.forEach(function(row) { %>
       <tr>
-        <% row.forEach(function(cell) { %>
-          <td
-            <% if (typeof cell == "number") { %>
-              class="right"
-            <% } %>
-          ><%= cell %></td>
+        <% row.forEach(function(cell, index) { %>
+          <td class="
+            <% if (data.classes[index]) { %><%= data.classes[index] %><% } %>
+            <% if (index == data.lastSort) { %> emphasis<% } %>
+          "><%= cell %></td>
         <% }); %>
       </tr>
     <% }); %>

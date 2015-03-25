@@ -16,13 +16,19 @@ proto.createdCallback = function() {
   parser.write(tableData);
   parser.end();
 
+  var classes = null;
+  if (this.hasAttribute("classes")) {
+    var classes = this.attributes.classes.value.split(",");
+  }
+
   if (this.hasAttribute("noheader")) {
     this.innerHTML = template({body: parsed});
   } else {
     var header = parsed.shift();
     this.innerHTML = template({
       header: header, 
-      body: parsed
+      body: parsed,
+      classes: classes
     });
   }
 
@@ -30,7 +36,8 @@ proto.createdCallback = function() {
     header: header,
     rows: parsed,
     sortOrder: 1,
-    lastSort: null
+    lastSort: null,
+    classes: classes
   }
 
   if (this.hasAttribute("sortable")) {
@@ -70,7 +77,8 @@ proto.sortTable = function(index) {
     header: this.data.header, 
     body: this.data.rows, 
     lastSort: this.data.lastSort, 
-    sortOrder: this.data.sortOrder 
+    sortOrder: this.data.sortOrder,
+    classes: this.data.classes
   });
 };
 proto.data = null;
