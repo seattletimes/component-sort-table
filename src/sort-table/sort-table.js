@@ -13,11 +13,13 @@ proto.createdCallback = function() {
   var parsed = [];
   var parser = csv.parse({ auto_parse: true });
   parser.on("data", function(line) { parsed.push(line) });
-  parser.write(tableData);
+  parser.write(tableData + "\n"); // apparently csv parser expects a line break at the end of every line?
   parser.end();
 
   var classes = null;
   if (this.hasAttribute("classes")) {
+    // allows user to style specific columns
+    // obvious use case: formatting columns for numbers vs. strings
     var classes = this.attributes.classes.value.split(",");
   }
 
