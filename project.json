@@ -1,6 +1,8 @@
 {
   "s3": {
-    "bucket": "",
-    "path": ""
+    "stage": {
+      "bucket": "apps-stage.seattletimesdata.com",
+      "path": "polished-dust"
+    }
   }
 }

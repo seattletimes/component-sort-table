@@ -10,7 +10,7 @@
             down
           <% } %>
         <% } %>
-        <% if (data.classes) { %> <%= data.classes[index] %><% } %>
+        <% if (data.classes && data.classes[index]) { %> <%= data.classes[index] %><% } %>
         " id=<%= index %>><%= cell %></th>
       <% }); %>
     </thead>
@@ -23,7 +23,7 @@
       <tr>
         <% row.forEach(function(cell, index) { %>
           <td class="
-            <% if (data.classes) { %><%= data.classes[index] %><% } %>
+            <% if (data.classes && data.classes[index]) { %><%= data.classes[index] %><% } %>
             <% if (index == data.lastSort) { %> emphasis<% } %>
           "><%= cell.toLocaleString().replace("/\.0+/", "") %></td>
         <% }); %>
