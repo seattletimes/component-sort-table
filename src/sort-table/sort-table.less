@@ -5,7 +5,7 @@ sort-table {
     -ms-box-sizing: border-box;
     box-sizing: border-box;
   }
-
+  
   th {
     cursor: pointer;
     padding-left: 1.2em;
@@ -13,17 +13,17 @@ sort-table {
 
     &.up::before, &.down::before {
       position: absolute;
-      font-size: 10px;
+      font-size: 0.6em;
       color: rgb(188, 92, 35);
       margin-left: -1.3em;
     }
     &.up::before {
       content: "\25B2";
-      padding-top: 1px;
+      padding-top: 0.1em;
     }
     &.down::before {
       content: "\25BC";
-      padding-top: 2px;
+      padding-top: 0.2em;
     }
 
     &.string {
@@ -35,17 +35,17 @@ sort-table {
       }
       &.up::after, &.down::after {
         position: absolute;
-        font-size: 10px;
+        font-size: 0.6em;
         color: rgb(188, 92, 35);
         margin-left: 0.3em;
       }
       &.up::after {
         content: "\25B2";
-        padding-top: 1px;
+        padding-top: 0.1em;
       }
       &.down::after {
         content: "\25BC";
-        padding-top: 2px;
+        padding-top: 0.2em;
       }
     }
   }
@@ -57,7 +57,7 @@ sort-table {
   }
 
   td {
-    padding: 4px;
+    padding: 0.4em;
     text-align: right;
 
     &.string {
