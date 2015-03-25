@@ -20,11 +20,14 @@ proto.createdCallback = function() {
   if (this.hasAttribute("classes")) {
     // allows user to style specific columns
     // obvious use case: formatting columns for numbers vs. strings
-    var classes = this.attributes.classes.value.split(",");
+    classes = this.attributes.classes.value.split(",");
   }
 
   if (this.hasAttribute("noheader")) {
-    this.innerHTML = template({body: parsed});
+    this.innerHTML = template({
+      body: parsed,
+      classes: classes
+    });
   } else {
     var header = parsed.shift();
     this.innerHTML = template({
@@ -43,6 +46,7 @@ proto.createdCallback = function() {
   }
 
   if (this.hasAttribute("sortable")) {
+    this.classList.add("sortable");
     this.addEventListener("click", function(e) {
       if (e.target.tagName == "TH") {
 
