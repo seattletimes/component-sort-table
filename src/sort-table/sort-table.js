@@ -11,7 +11,7 @@ var proto = Object.create(HTMLElement.prototype);
 proto.createdCallback = function() {
   var tableData = this.innerHTML.replace(/^\s+|\r/gm, "").split("\n").filter(function(line) { return line.match(/[^,]/) }).join("\n");
   var parsed = [];
-  var parser = csv.parse();
+  var parser = csv.parse({ auto_parse: true });
   parser.on("data", function(line) { parsed.push(line) });
   parser.write(tableData);
   parser.end();
@@ -36,6 +36,8 @@ proto.createdCallback = function() {
   if (this.hasAttribute("sortable")) {
     this.addEventListener("click", function(e) {
       if (e.target.tagName == "TH") {
+
+        // this.attributes.sortable
         this.sortTable(e.target.id);
         e.target.className = "up";
       }
@@ -54,8 +56,8 @@ proto.sortTable = function(index) {
   }
   var self = this;
   this.data.rows.sort(function(a, b) {
-    a = parseInt(a[index]) ? a[index] * -1 : a[index].toLowerCase();
-    b = parseInt(b[index]) ? b[index] * -1 : b[index].toLowerCase();
+    a = typeof a[index] == "number" ? a[index] * -1 : a[index].toLowerCase();
+    b = typeof b[index] == "number" ? b[index] * -1 : b[index].toLowerCase();
     if (a < b) {
       return -1 * self.data.sortOrder;
     } else if (a > b) {

@@ -18,7 +18,11 @@
     <% data.body.forEach(function(row) { %>
       <tr>
         <% row.forEach(function(cell) { %>
-          <td><%= cell %></td>
+          <td
+            <% if (typeof cell == "number") { %>
+              class="right"
+            <% } %>
+          ><%= cell %></td>
         <% }); %>
       </tr>
     <% }); %>
