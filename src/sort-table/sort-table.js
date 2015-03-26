@@ -8,6 +8,8 @@ require("./sort-table.less");
 
 var proto = Object.create(HTMLElement.prototype);
 
+var parseAttr = function(s) { return !s ? [] : s.split(",") };
+
 proto.createdCallback = function() {
   var tableData = this.innerHTML.replace(/^\s+|\r/gm, "").split("\n").filter(function(line) { return line.match(/[^,]/) }).join("\n");
   var parsed = [];
@@ -20,8 +22,10 @@ proto.createdCallback = function() {
   if (this.hasAttribute("classes")) {
     // allows user to style specific columns
     // obvious use case: formatting columns for numbers vs. strings
-    classes = this.attributes.classes.value.split(",");
+    classes = parseAttr(this.getAttribute("classes"));
   }
+
+  var sortAttr = parseAttr(this.getAttribute("sortable"));
 
   if (this.hasAttribute("noheader")) {
     this.innerHTML = template({
@@ -30,10 +34,12 @@ proto.createdCallback = function() {
     });
   } else {
     var header = parsed.shift();
+    var sortable = header.map(function(name) { return sortAttr.length ? sortAttr.indexOf(name) > -1 : true });
     this.innerHTML = template({
       header: header, 
       body: parsed,
-      classes: classes
+      classes: classes,
+      sort: sortable
     });
   }
 
@@ -42,18 +48,26 @@ proto.createdCallback = function() {
     rows: parsed,
     sortOrder: 1,
     lastSort: null,
-    classes: classes
+    classes: classes,
+    sort: sortable
   }
 
   if (this.hasAttribute("sortable")) {
-    this.classList.add("sortable");
+    var columns = parseAttr(this.getAttribute("sortable"));
+
     this.addEventListener("click", function(e) {
       if (e.target.tagName == "TH") {
-
-        this.sortTable(e.target.id);
-        e.target.className = "up";
+        if (columns.length) {
+          if (columns.indexOf(e.target.innerHTML) > -1) {
+            this.sortTable(e.target.id);
+            // e.target.className = "up";
+          }
+        } else {
+          this.sortTable(e.target.id);
+          // e.target.className = "up";
+        }
       }
-    })
+    });
   }
 };
 
@@ -84,7 +98,8 @@ proto.sortTable = function(index) {
     body: this.data.rows, 
     lastSort: this.data.lastSort, 
     sortOrder: this.data.sortOrder,
-    classes: this.data.classes
+    classes: this.data.classes,
+    sort: this.data.sort
   });
 };
 proto.data = null;

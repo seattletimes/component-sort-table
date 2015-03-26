@@ -10,12 +10,6 @@ sort-table {
     border-collapse: collapse;
   }
 
-  &.sortable {
-    th {
-      cursor: pointer;
-    }
-  }
-
   &.small-caps {
     th {
       text-transform: uppercase;
@@ -54,6 +48,10 @@ sort-table {
     padding-left: 1.2em;
     font-size: 1.1em;
     border-right: 1px solid rgb(248, 248, 248);
+
+    &.sortable {
+      cursor: pointer;
+    }
 
     &:last-child { 
       border-right: none; 

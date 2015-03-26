@@ -3,14 +3,9 @@
     <thead>
       <% data.header.forEach(function(cell, index) { %>
         <th class="
-        <% if (index == data.lastSort) { %>
-          <% if (data.sortOrder == -1) { %>
-            up
-          <% } else { %>
-            down
-          <% } %>
-        <% } %>
-        <% if (data.classes && data.classes[index]) { %> <%= data.classes[index] %><% } %>
+        <%= data.lastSort == index ? (data.sortOrder == -1 ? "up" : "down") : "" %>
+        <%= data.sort && data.sort[index] ? "sortable " : "" %>
+        <%= data.classes && data.classes[index] || "" %>
         " id=<%= index %>><%= cell %></th>
       <% }); %>
     </thead>
