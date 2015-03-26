@@ -25,7 +25,9 @@ proto.createdCallback = function() {
     classes = parseAttr(this.getAttribute("classes"));
   }
 
-  var sortAttr = parseAttr(this.getAttribute("sortable"));
+  if (this.hasAttribute("sortable")) {
+    var sortAttr = parseAttr(this.getAttribute("sortable"));
+  }
 
   if (this.hasAttribute("noheader")) {
     this.innerHTML = template({
@@ -34,7 +36,13 @@ proto.createdCallback = function() {
     });
   } else {
     var header = parsed.shift();
-    var sortable = header.map(function(name) { return sortAttr.length ? sortAttr.indexOf(name) > -1 : true });
+    var sortable = header.map(function(name) { 
+      if (sortAttr) {
+        return sortAttr.length ? sortAttr.indexOf(name) > -1 : true
+      } else {
+        false
+      }
+    });
     this.innerHTML = template({
       header: header, 
       body: parsed,
