@@ -3,7 +3,7 @@ component-sort-table
 
 A custom element for quickly generating HTML tables with sortable columns::
 
-  <sort-table sortable="District,Population" classes="string">
+  <sort-table sortable classes="string">
     District,Population,Households,White,Hispanic,Black
     One,91678,41195,62989,8979,6094
     Two,92281,34401,28556,8667,18388
@@ -29,7 +29,7 @@ The table can be further configured with several custom attributes:
 * ``sortable="Foo,Bar,Baz"`` - allows users to specify only certain column headers to be sortable
 * ``classes="foo bar,foo,,,bar"`` - allows users to include custom styling by adding comma-separated sets of classes to their corresponding columns
 
-  * ``string`` - left aligns column headers and cell text (by default, headers and cell text are right aligned)
+  * ``string`` class - left aligns column headers and cell text (by default, headers and cell text are right aligned)
   * Users can also write their own custom classes
   
 Extras
