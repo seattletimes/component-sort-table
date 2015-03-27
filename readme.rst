@@ -27,11 +27,11 @@ The table can be further configured with several custom attributes:
 * ``noheader`` - for tables that do not have a header row
 * ``sortable`` - enables sortable columns (only works if table has a header row); by default, all columns will be sortable
 * ``sortable="Foo,Bar,Baz"`` - allows users to specify only certain column headers to be sortable
-* ``classes="foo bar,foo,,,bar"`` - allows users to inlcude custom styling by adding comma-separated sets of classes to their corresponding columns
+* ``classes="foo bar,foo,,,bar"`` - allows users to include custom styling by adding comma-separated sets of classes to their corresponding columns
 
-  * ``string`` - left aligns column header and cell text (by default, headers and cell text is right aligned)
+  * ``string`` - left aligns column headers and cell text (by default, headers and cell text are right aligned)
   * Users can also write their own custom classes
   
 Extras
 ------------
-Since ``<sort-table>`` is built to read CSV-formatted data, raw numeric data should not include commas. Numeric formatting is taken care of by the custom element.
+Since ``<sort-table>`` is built to read CSV-formatted data, raw numeric data should not include commas. Locale-based numeric formatting is taken care of by the custom element.
