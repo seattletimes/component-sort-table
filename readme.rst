@@ -14,7 +14,7 @@ A custom element for quickly generating HTML tables with sortable columns::
     Seven,86024,50112,64780,4949,3662
   </sort-table>
     
-``<sort-table>`` was built using The Seattle Times' `web component template <https://github.com/seattletimes/component-template>`__.
+``<sort-table>`` was built using the Seattle Times' `web component template <https://github.com/seattletimes/component-template>`__.
 
 Configuration
 ------------
