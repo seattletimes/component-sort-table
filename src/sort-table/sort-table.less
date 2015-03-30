@@ -1,3 +1,6 @@
+@df-serif: "ff-meta-serif-web-pro", Georgia, serif;
+@df-sans: "ff-dagny-web-pro", Helvetica Neue, Helvetica, sans-serif;
+
 sort-table {
   * {
     -webkit-box-sizing: border-box;
@@ -8,45 +11,14 @@ sort-table {
 
   table {
     border-collapse: collapse;
-  }
-
-  &.small-caps {
-    th {
-      text-transform: uppercase;
-      font-size: 0.85em;
-
-      &.up::before, &.down::before {
-        font-size: 0.7em;
-        margin-left: -1.3em;
-      }
-      &.up::before {
-        padding-top: 0;
-      }
-      &.down::before {
-        padding-top: 0;
-      }
-
-      &.string {
-        padding-right: 1.2em;
-
-        &.up::after, &.down::after {
-          font-size: 0.7em;
-          margin-left: 0.3em;
-        }
-        &.up::after {
-          padding-top: 0;
-        }
-        &.down::after {
-          padding-top: 0;
-        }
-      }
-    }
+    font-family: @df-sans;
   }
 
   th {
     padding: 0.4em;
-    padding-left: 1.2em;
-    font-size: 1.1em;
+    padding-left: 1.4em;
+    text-transform: uppercase;
+    font-size: 0.75em;
     border-right: 1px solid rgb(248, 248, 248);
 
     &.sortable {
@@ -59,13 +31,13 @@ sort-table {
 
     &.up::before, &.down::before {
       position: absolute;
-      font-size: 0.6em;
       color: rgb(188, 92, 35);
+      font-size: 0.7em;
       margin-left: -1.3em;
     }
     &.up::before {
       content: "\25B2";
-      padding-top: 0.1em;
+      padding-top: 0.2em;
     }
     &.down::before {
       content: "\25BC";
@@ -81,13 +53,13 @@ sort-table {
       }
       &.up::after, &.down::after {
         position: absolute;
-        font-size: 0.6em;
         color: rgb(188, 92, 35);
+        font-size: 0.7em;
         margin-left: 0.3em;
       }
       &.up::after {
         content: "\25B2";
-        padding-top: 0.1em;
+        padding-top: 0.2em;
       }
       &.down::after {
         content: "\25BC";
