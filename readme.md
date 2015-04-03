@@ -38,7 +38,8 @@ The table can be further configured with several custom attributes:
     corresponding columns
     -   `string` class - left aligns column headers and cell text (by
         default, headers and cell text are right-aligned)
-    -   Users are also free to include their own custom classes
+    -   `mobile-hidden`, `tablet-hidden` classes - hide specified columns on mobile devices (480px default breakpoint for mobile, 768px for tablet)
+    -   Users are also able to include their own custom classes
 
 Extras 
 ------
