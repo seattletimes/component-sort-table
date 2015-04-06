@@ -44,6 +44,6 @@ The table can be further configured with several custom attributes:
 Extras 
 ------
 
-Since `<sort-table>` is built to read CSV-formatted data, raw numeric
-data should not include commas. Numbers are automatically formatted
-during processing.
+Since `<sort-table>` is built to read CSV-formatted data, raw data should not include commas (unless stringified). Numbers are automatically formatted during processing.
+
+Users should be aware that `<sort-table>` does not sanitize its data. This means that table cells can be further customized by passing in HTML as raw data.
