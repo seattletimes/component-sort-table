@@ -1,8 +1,8 @@
 {
   "name": "component-sort-table",
   "description": "A custom element for creating sortable tables",
-  "version": "0.0.8",
-  "author": "Audrey Carlsen",
+  "version": "0.0.9",
+  "author": "Audrey Carlsen, Thomas Wilburn",
   "repository": {
     "type": "git",
     "url": "https://github.com/seattletimes/component-sort-table.git"
@@ -13,7 +13,6 @@
     "aws-sdk": "^2.0.0-rc.19",
     "browserify": "^6.2.0",
     "chalk": "^0.5.1",
-    "csv": "^0.4.1",
     "document-register-element": "^0.1.6",
     "dot": "^1.0.2",
     "exorcist": "^0.1.6",

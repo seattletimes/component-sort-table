@@ -4,7 +4,7 @@
     <h1>Test page for sort-table</h1>
     <p>This table doesn't have a header:</p>
     <sort-table noheader>
-      1,91678,41195,62989,8979,6094
+      1,91678,41195,"62,989",8979,6094
       2,92281,34401,28556,8667,18388
       3,91197,46839,62237,5926,9596
       4,93874,39907,68570,4648,2194
@@ -26,7 +26,7 @@
     <p>This table has a header and is sortable:</p>
     <sort-table sortable>
       District,Population,Households,White,Hispanic,Black
-      1,91678,41195,62989,8979,6094
+      1,91678,41195,"62,989",8979,6094
       2,92281,34401,28556,8667,18388
       3,91197,46839,62237,5926,9596
       4,93874,39907,68570,4648,2194
@@ -37,7 +37,7 @@
     <p>Only the first two rows of this table are sortable:</p>
     <sort-table sortable="District,Population">
       District,Population,Households,White,Hispanic,Black
-      1,91678,41195,62989,8979,6094
+      1,91678,41195,62989,8979,<b>"""testing</b>
       2,92281,34401,28556,8667,18388
       3,91197,46839,62237,5926,9596
       4,93874,39907,68570,4648,2194

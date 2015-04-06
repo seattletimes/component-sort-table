@@ -3,7 +3,7 @@ require("document-register-element");
 
 //element setup
 var template = require("./_template.html");
-var csv = require("csv");
+var csv = require("./csv");
 require("./sort-table.less");
 
 var proto = Object.create(HTMLElement.prototype);
@@ -12,11 +12,8 @@ var parseAttr = function(s) { return !s ? [] : s.split(",") };
 
 proto.createdCallback = function() {
   var tableData = this.innerHTML.replace(/^\s+|\r/gm, "").split("\n").filter(function(line) { return line.match(/[^,]/) }).join("\n");
-  var parsed = [];
-  var parser = csv.parse({ auto_parse: true });
-  parser.on("data", function(line) { parsed.push(line) });
-  parser.write(tableData + "\n"); // apparently csv parser expects a line break at the end of every line?
-  parser.end();
+  var parser = new csv.Parser();
+  var parsed = parser.parse(tableData);
 
   var classes = null;
   if (this.hasAttribute("classes")) {
