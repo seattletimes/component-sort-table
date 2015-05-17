@@ -26,6 +26,11 @@ data to a static table by wrapping the data in a custom element tag. By
 default, `<sort-table>` will generate a static (non-sortable) table with
 the first row of data formatted as a header row.
 
+Or feed data from a Google Spreadsheet by specifying the sheet ID:
+
+    <sort-table sortable sheet="[GOOGLE_SHEET_ID]">
+    </sort-table>
+
 The table can be further configured with several custom attributes:
 
 -   `noheader` - for tables that do not have a header row
@@ -40,11 +45,6 @@ The table can be further configured with several custom attributes:
         default, headers and cell text are right-aligned)
     -   `mobile-hidden`, `tablet-hidden` classes - hide specified columns on mobile devices (480px default breakpoint for mobile, 768px for tablet)
     -   Users are also able to include their own custom classes
-
-`<sort-table>` can also be fed data from a Google Spreadsheet (must contain a header row) by specifying the sheet ID:
-
-    <sort-table sortable sheet="[GOOGLE_SHEET_ID]">
-    </sort-table>
 
 Extras 
 ------
