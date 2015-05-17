@@ -5,75 +5,108 @@ require("document-register-element");
 var template = require("./_template.html");
 var csv = require("./csv");
 require("./sort-table.less");
+var Tabletop = require("./tabletop").Tabletop;
 
 var proto = Object.create(HTMLElement.prototype);
 
 var parseAttr = function(s) { return !s ? [] : s.split(",") };
 
 proto.createdCallback = function() {
-  var tableData = this.innerHTML.replace(/^\s+|\r/gm, "").split("\n").filter(function(line) { return line.match(/[^,]/) }).join("\n");
-  var parser = new csv.Parser();
-  var parsed = parser.parse(tableData);
+  var parsed = [];
 
-  var classes = null;
-  if (this.hasAttribute("classes")) {
-    // allows user to style specific columns
-    // obvious use case: formatting columns for numbers vs. strings
-    classes = parseAttr(this.getAttribute("classes"));
-  }
+  var setUp = function(parsed, self) {
+    console.log(parsed, self)
+    var classes = null;
+    if (self.hasAttribute("classes")) {
+      // allows user to style specific columns
+      // obvious use case: formatting columns for numbers vs. strings
+      classes = parseAttr(self.getAttribute("classes"));
+    }
 
-  if (this.hasAttribute("sortable")) {
-    var sortAttr = parseAttr(this.getAttribute("sortable"));
-  }
+    if (self.hasAttribute("sortable")) {
+      var sortAttr = parseAttr(self.getAttribute("sortable"));
+    }
 
-  if (this.hasAttribute("noheader")) {
-    this.innerHTML = template({
-      body: parsed,
-      classes: classes
-    });
-  } else {
-    var header = parsed.shift();
-    var sortable = header.map(function(name) { 
-      if (sortAttr) {
-        return sortAttr.length ? sortAttr.indexOf(name) > -1 : true
-      } else {
-        false
-      }
-    });
-    this.innerHTML = template({
-      header: header, 
-      body: parsed,
+    if (self.hasAttribute("noheader")) {
+      self.innerHTML = template({
+        body: parsed,
+        classes: classes
+      });
+    } else {
+      var header = parsed.shift();
+      var sortable = header.map(function(name) { 
+        if (sortAttr) {
+          return sortAttr.length ? sortAttr.indexOf(name) > -1 : true
+        } else {
+          false
+        }
+      });
+      self.innerHTML = template({
+        header: header,
+        body: parsed,
+        classes: classes,
+        sort: sortable
+      });
+    }
+
+    self.data = {
+      header: header,
+      rows: parsed,
+      sortOrder: 1,
+      lastSort: null,
       classes: classes,
       sort: sortable
-    });
-  }
+    }
 
-  this.data = {
-    header: header,
-    rows: parsed,
-    sortOrder: 1,
-    lastSort: null,
-    classes: classes,
-    sort: sortable
-  }
+    if (self.hasAttribute("sortable")) {
+      var columns = parseAttr(self.getAttribute("sortable"));
 
-  if (this.hasAttribute("sortable")) {
-    var columns = parseAttr(this.getAttribute("sortable"));
-
-    this.addEventListener("click", function(e) {
-      if (e.target.tagName == "TH") {
-        if (columns.length) {
-          if (columns.indexOf(e.target.innerHTML) > -1) {
-            this.sortTable(e.target.id);
+      self.addEventListener("click", function(e) {
+        if (e.target.tagName == "TH") {
+          if (columns.length) {
+            if (columns.indexOf(e.target.innerHTML) > -1) {
+              self.sortTable(e.target.id);
+              // e.target.className = "up";
+            }
+          } else {
+            self.sortTable(e.target.id);
             // e.target.className = "up";
           }
-        } else {
-          this.sortTable(e.target.id);
-          // e.target.className = "up";
         }
-      }
+      });
+    }
+  };
+
+  if (this.hasAttribute("sheet")) {
+    var sheetId = this.getAttribute("sheet");
+    var self = this;
+    Tabletop.init({ 
+      key: sheetId, 
+      callback: function(data, tabletop) {
+        var header = [];
+        // Tabletop assums you have a header row
+        for (var label in data[0]) {
+          header.push(label);
+        }
+        parsed.push(header);
+        data.forEach(function(row) {
+          var parsedRow = [];
+          for (var label in row) {
+            parsedRow.push(row[label]);
+          }
+          parsed.push(parsedRow);
+        });
+      setUp(parsed, self);
+      },
+      simpleSheet: true
     });
+  } else {
+    var tableData = this.innerHTML.replace(/^\s+|\r/gm, "").split("\n").filter(function(line) { return line.match(/[^,]/) }).join("\n");
+    var parser = new csv.Parser();
+    parsed = parser.parse(tableData);
+    setUp(parsed, this);
   }
+
 };
 
 proto.attachedCallback = function() {};
