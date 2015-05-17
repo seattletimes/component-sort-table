@@ -1,7 +1,7 @@
 {
   "name": "component-sort-table",
   "description": "A custom element for creating sortable tables",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "author": "Audrey Carlsen, Thomas Wilburn",
   "repository": {
     "type": "git",

@@ -31,6 +31,8 @@ Or feed data from a Google Spreadsheet by specifying the sheet ID:
     <sort-table sortable sheet="[GOOGLE_SHEET_ID]">
     </sort-table>
 
+(While using a Google Sheet is helpful when dealing with frequently changing data, we recommend including data inline for long-term use.)
+
 The table can be further configured with several custom attributes:
 
 -   `noheader` - for tables that do not have a header row
