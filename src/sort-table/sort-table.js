@@ -14,69 +14,6 @@ var parseAttr = function(s) { return !s ? [] : s.split(",") };
 proto.createdCallback = function() {
   var parsed = [];
 
-  var setUp = function(parsed, self) {
-    console.log(parsed, self)
-    var classes = null;
-    if (self.hasAttribute("classes")) {
-      // allows user to style specific columns
-      // obvious use case: formatting columns for numbers vs. strings
-      classes = parseAttr(self.getAttribute("classes"));
-    }
-
-    if (self.hasAttribute("sortable")) {
-      var sortAttr = parseAttr(self.getAttribute("sortable"));
-    }
-
-    if (self.hasAttribute("noheader")) {
-      self.innerHTML = template({
-        body: parsed,
-        classes: classes
-      });
-    } else {
-      var header = parsed.shift();
-      var sortable = header.map(function(name) { 
-        if (sortAttr) {
-          return sortAttr.length ? sortAttr.indexOf(name) > -1 : true
-        } else {
-          false
-        }
-      });
-      self.innerHTML = template({
-        header: header,
-        body: parsed,
-        classes: classes,
-        sort: sortable
-      });
-    }
-
-    self.data = {
-      header: header,
-      rows: parsed,
-      sortOrder: 1,
-      lastSort: null,
-      classes: classes,
-      sort: sortable
-    }
-
-    if (self.hasAttribute("sortable")) {
-      var columns = parseAttr(self.getAttribute("sortable"));
-
-      self.addEventListener("click", function(e) {
-        if (e.target.tagName == "TH") {
-          if (columns.length) {
-            if (columns.indexOf(e.target.innerHTML) > -1) {
-              self.sortTable(e.target.id);
-              // e.target.className = "up";
-            }
-          } else {
-            self.sortTable(e.target.id);
-            // e.target.className = "up";
-          }
-        }
-      });
-    }
-  };
-
   if (this.hasAttribute("sheet")) {
     var sheetId = this.getAttribute("sheet");
     var self = this;
@@ -96,15 +33,16 @@ proto.createdCallback = function() {
           }
           parsed.push(parsedRow);
         });
-      setUp(parsed, self);
+      self.setUp(parsed);
       },
-      simpleSheet: true
+      simpleSheet: true,
+      parseNumbers: true
     });
   } else {
     var tableData = this.innerHTML.replace(/^\s+|\r/gm, "").split("\n").filter(function(line) { return line.match(/[^,]/) }).join("\n");
     var parser = new csv.Parser();
     parsed = parser.parse(tableData);
-    setUp(parsed, this);
+    this.setUp(parsed);
   }
 
 };
@@ -112,8 +50,64 @@ proto.createdCallback = function() {
 proto.attachedCallback = function() {};
 proto.detachedCallback = function() {};
 proto.attributeChangedCallback = function() {};
+proto.setUp = function(parsed) {
+  var classes = null;
+  if (this.hasAttribute("classes")) {
+    // allows user to style specific columns
+    // obvious use case: formatting columns for numbers vs. strings
+    classes = parseAttr(this.getAttribute("classes"));
+  }
+
+  if (this.hasAttribute("sortable")) {
+    var sortAttr = parseAttr(this.getAttribute("sortable"));
+  }
+
+  if (this.hasAttribute("noheader")) {
+    this.data = {
+      rows: parsed,
+      classes: classes
+    };
+  } else {
+    var header = parsed.shift();
+    var sortable = header.map(function(name) { 
+      if (sortAttr) {
+        return sortAttr.length ? sortAttr.indexOf(name) > -1 : true
+      } else {
+        false
+      }
+    });
+    this.data = {
+      header: header,
+      rows: parsed,
+      classes: classes,
+      sort: sortable,
+      sortOrder: 1,
+      lastSort: null
+    };
+  }
+
+  this.innerHTML = template(this.data);
+
+  if (this.hasAttribute("sortable")) {
+    var columns = parseAttr(this.getAttribute("sortable"));
+
+    this.addEventListener("click", function(e) {
+      if (e.target.tagName == "TH") {
+        if (columns.length) {
+          if (columns.indexOf(e.target.innerHTML) > -1) {
+            this.sortTable(e.target.id);
+            // e.target.className = "up";
+          }
+        } else {
+          this.sortTable(e.target.id);
+          // e.target.className = "up";
+        }
+      }
+    });
+  }
+};
 proto.sortTable = function(index) {
-  if (this.data.lastSort == index) { 
+  if (this.data.lastSort == index) {
     this.data.sortOrder *= -1;
   } else {
     this.data.lastSort = index;
@@ -131,14 +125,7 @@ proto.sortTable = function(index) {
       return 0;
     }
   });
-  this.innerHTML = template({
-    header: this.data.header, 
-    body: this.data.rows, 
-    lastSort: this.data.lastSort, 
-    sortOrder: this.data.sortOrder,
-    classes: this.data.classes,
-    sort: this.data.sort
-  });
+  this.innerHTML = template(this.data);
 };
 proto.data = null;
 
