@@ -50,6 +50,7 @@ proto.createdCallback = function() {
 proto.attachedCallback = function() {};
 proto.detachedCallback = function() {};
 proto.attributeChangedCallback = function() {};
+
 proto.setUp = function(parsed) {
   var classes = null;
   if (this.hasAttribute("classes")) {
@@ -106,6 +107,7 @@ proto.setUp = function(parsed) {
     });
   }
 };
+
 proto.sortTable = function(index) {
   if (this.data.lastSort == index) {
     this.data.sortOrder *= -1;

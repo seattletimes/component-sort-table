@@ -41,6 +41,11 @@ The table can be further configured with several custom attributes:
     -   `mobile-hidden`, `tablet-hidden` classes - hide specified columns on mobile devices (480px default breakpoint for mobile, 768px for tablet)
     -   Users are also able to include their own custom classes
 
+`<sort-table>` can also be fed data from a Google Spreadsheet (must contain a header row) by specifying the sheet ID:
+
+    <sort-table sortable sheet="[GOOGLE_SHEET_ID]">
+    </sort-table>
+
 Extras 
 ------
 
