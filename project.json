@@ -3,6 +3,10 @@
     "stage": {
       "bucket": "apps-stage.seattletimesdata.com",
       "path": "polished-dust"
+    },
+    "live": {
+      "bucket": "apps.seattletimes.com",
+      "path": "tags/sort-table"
     }
   }
 }
