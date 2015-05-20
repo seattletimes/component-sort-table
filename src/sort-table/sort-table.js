@@ -131,4 +131,8 @@ proto.sortTable = function(index) {
 };
 proto.data = null;
 
-document.registerElement("sort-table", { prototype: proto });
+try {
+  document.registerElement("sort-table", { prototype: proto });
+} catch (e) {
+  console.error("sort-table has already been initialized.");
+}
