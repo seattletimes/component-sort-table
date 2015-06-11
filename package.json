@@ -13,7 +13,7 @@
     "aws-sdk": "^2.0.0-rc.19",
     "browserify": "^6.2.0",
     "chalk": "^0.5.1",
-    "document-register-element": "^0.1.6",
+    "document-register-element": "^0.4.2",
     "dot": "^1.0.2",
     "exorcist": "^0.1.6",
     "grunt": "^0.4.5",
