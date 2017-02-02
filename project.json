@@ -8,5 +8,6 @@
       "bucket": "apps.seattletimes.com",
       "path": "tags/sort-table"
     }
-  }
+  },
+  "production": true
 }

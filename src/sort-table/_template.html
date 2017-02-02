@@ -17,7 +17,7 @@
           <td class="
             <% if (data.classes && data.classes[index]) { %><%= data.classes[index] %><% } %>
             <% if (index == data.lastSort) { %> emphasis<% } %>
-          "><%= cell.toLocaleString().replace("/\.0+/", "") %></td>
+          "><%= cell.toLocaleString().replace(/\.0+$/, "") %></td>
         <% }); %>
       </tr>
     <% }); %>
